@@ -5,7 +5,8 @@ import {Paper, FontIcon} from 'material-ui';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 
-import LoginForm from './LoginForm'
+import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
 
 class Login extends Component {
   constructor(props) {
@@ -42,7 +43,7 @@ class Login extends Component {
                   <LoginForm/>
                 </div>
                 <div className="content">
-                  <h1>Register</h1>
+                  <RegisterForm/>
                 </div>
               </SwipeableViews>
             </Paper>
