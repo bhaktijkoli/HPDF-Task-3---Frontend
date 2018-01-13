@@ -1,11 +1,28 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif;
+  background-color: whitesmoke;
 }
 
 .box {
   width: 200px;
   height: 200px;
   background-color: red;
+}
+.space {
+  display: block;
+  width: auto;
+  height: 20px;
+}
+.space-50 {
+  display: block;
+  width: auto;
+  height: 50px;
+}
+.login-content {
+  margin-top: 5%;
+}
+.content {
+  padding: 10px;
 }
