@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
+import muiThemeable from 'material-ui/styles/muiThemeable';
 import {Paper, FontIcon} from 'material-ui';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
@@ -14,6 +15,7 @@ class Login extends Component {
     this.state = {
       slideIndex: 0,
     };
+    console.log(this.props)
   }
 
   handleChange = (value) => {
@@ -24,33 +26,38 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="login-content container">
-        <div className="row">
-          <div className="col-sm-4">
-          </div>
-          <div className="col-sm-4">
-            <Paper>
-              <Tabs
-                onChange={this.handleChange}
-                value={this.state.slideIndex}>
-                <Tab label="Login" value={0} />
-                <Tab label="Sign Up" value={1} />
-              </Tabs>
-              <SwipeableViews
-                index={this.state.slideIndex}
-                onChangeIndex={this.handleChange}>
-                <div className="content">
-                  <LoginForm/>
-                </div>
-                <div className="content">
-                  <RegisterForm/>
-                </div>
-              </SwipeableViews>
-            </Paper>
+      <div className="section login">
+        <div className="login-header" style={{backgroundColor:this.props.muiTheme.appBar.color}}>
+          <h1><strong>F</strong>acebook</h1>
+        </div>
+        <div className="login-content container">
+          <div className="row">
+            <div className="col-sm-4">
+            </div>
+            <div className="col-sm-4">
+              <Paper>
+                <Tabs
+                  onChange={this.handleChange}
+                  value={this.state.slideIndex}>
+                  <Tab icon={<FontIcon className="material-icons">person</FontIcon>} label="Login" value={0} />
+                  <Tab icon={<FontIcon className="material-icons">person_add</FontIcon>} label="Sign Up" value={1} />
+                </Tabs>
+                <SwipeableViews
+                  index={this.state.slideIndex}
+                  onChangeIndex={this.handleChange}>
+                  <div className="content">
+                    <LoginForm/>
+                  </div>
+                  <div className="content">
+                    <RegisterForm/>
+                  </div>
+                </SwipeableViews>
+              </Paper>
+            </div>
           </div>
         </div>
       </div>
     );
   }
 }
-export default withRouter(Login);
+export default withRouter(muiThemeable()(Login));
