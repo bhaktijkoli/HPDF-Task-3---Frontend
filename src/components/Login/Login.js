@@ -15,7 +15,7 @@ class Login extends Component {
     this.state = {
       slideIndex: 0,
     };
-    console.log(this.props)
+    document.title = "Welcome to Facebook";
   }
 
   handleChange = (value) => {
