@@ -13,7 +13,7 @@ class App extends Component {
       <BrowserRouter>
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
           <Header />
-          <Route exact path="/" component={Home}/>
+          <Route exact path="/" component={Login}/>
       </MuiThemeProvider>
     </BrowserRouter>
     );
