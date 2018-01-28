@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-
 import {TextField, DatePicker, SelectField, MenuItem, RaisedButton } from 'material-ui';
+import $ from 'jquery';
+
+import route from './../../utils/route';
+
+var axios = require('axios')
 
 class RegisterForm extends Component {
   constructor(props) {
@@ -11,13 +15,12 @@ class RegisterForm extends Component {
       lastname:'',
       email:'',
       password:'',
-      gender:'',
+      gender:'Male',
       dob: new Date(),
       firstnameError:'',
       lastnameError:'',
       emailError:'',
       passwordError:'',
-      genderError:"",
     }
   }
   handleChange(e) {
@@ -40,8 +43,11 @@ class RegisterForm extends Component {
     if(state.lastname.length < 3 || state.firstname.length > 10) this.setState({lastnameError:"Lastname should have of 3-10 characters."}), errors=true;
     if(!this.validateEmail(state.email)) this.setState({emailError:"Email should be valid."}), errors=true;
     if(state.password.length < 4 || state.password.length > 32) this.setState({passwordError:"Password is week.",errors: true}), errors=true;
-    if(state.gender.length < 1) this.setState({genderError:"Select a gender.",errors: true}), errors=true;
     if(errors == true) return;
+    axios.post(route('/signpoint'), $(e.target).serialize())
+    .then((response)=>{
+      console.log(response);
+    });
   }
   render() {
     return (
@@ -50,7 +56,7 @@ class RegisterForm extends Component {
         <TextField floatingLabelText="Last name" fullWidth name="lastname" errorText={this.state.lastnameError} value={this.state.lastname} onChange={e => this.handleChange(e)}/>
         <TextField floatingLabelText="Email" type="email" fullWidth name="email" errorText={this.state.emailError} value={this.state.email} onChange={e => this.handleChange(e)}/>
         <TextField floatingLabelText="Password" type="password" fullWidth name="password" errorText={this.state.passwordError} value={this.state.password} onChange={e => this.handleChange(e)}/>
-        <SelectField floatingLabelText="Gender" fullWidth name="gender" errorText={this.state.genderError} value={this.state.gender} onChange={this.handleChangeGender.bind(this)}>
+        <SelectField floatingLabelText="Gender" fullWidth name="gender" value={this.state.gender} onChange={this.handleChangeGender.bind(this)}>
           <MenuItem value="Male" primaryText="Male" />
           <MenuItem value="Female" primaryText="Female" />
           <MenuItem value="Other" primaryText="Other" />
