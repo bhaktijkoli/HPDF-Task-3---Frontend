@@ -3,9 +3,11 @@ import { withRouter } from 'react-router-dom';
 import {TextField, DatePicker, SelectField, MenuItem, RaisedButton } from 'material-ui';
 import $ from 'jquery';
 
-import route from './../../utils/route';
 
-var axios = require('axios')
+import route from './../../utils/route';
+import request from './../../utils/request';
+
+var axios = require('axios');
 
 class RegisterForm extends Component {
   constructor(props) {
@@ -36,6 +38,8 @@ class RegisterForm extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
+    axios.post(route('/signpoint'),$(e.target).serialize());
+    return
     this.setState({firstnameError:'',lastnameError:'',emailError:'',passwordError:'',errors: false})
     var state = this.state;
     var errors = false;
@@ -44,10 +48,6 @@ class RegisterForm extends Component {
     if(!this.validateEmail(state.email)) this.setState({emailError:"Email should be valid."}), errors=true;
     if(state.password.length < 4 || state.password.length > 32) this.setState({passwordError:"Password is week.",errors: true}), errors=true;
     if(errors == true) return;
-    axios.post(route('/signpoint'), $(e.target).serialize())
-    .then((response)=>{
-      console.log(response);
-    });
   }
   render() {
     return (
