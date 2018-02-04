@@ -14,6 +14,8 @@ class LoginForm extends Component {
     this.state = {
       email:'',
       password:'',
+      emailError:'',
+      passwordError:'',
     }
   }
   handleChange(e) {
@@ -23,9 +25,15 @@ class LoginForm extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
+    this.setState({emailError:'', passwordError: ''})
     var data = $(e.target).serialize();
-    console.log(data);
     request.makePost(route('/loginpoint'), data)
+    .then((response)=>{
+      window.location = "/";
+    })
+    .catch(()=>{
+      this.setState({emailError:' ', passwordError: 'Your email or password is invalid.'})
+    })
   }
   render() {
     return (
@@ -33,7 +41,7 @@ class LoginForm extends Component {
         <TextField floatingLabelText="Email" type="email" fullWidth name="email" errorText={this.state.emailError} value={this.state.email} onChange={e => this.handleChange(e)}/>
         <TextField floatingLabelText="Password" type="password" fullWidth name="password" errorText={this.state.passwordError} value={this.state.password} onChange={e => this.handleChange(e)}/>
         <div className="space"></div>
-        <RaisedButton type="submit" label="Sign Up" primary={true} fullWidth/>
+        <RaisedButton type="submit" label="Login" primary={true} fullWidth/>
         <div className="space-50"></div>
       </form>
     );
